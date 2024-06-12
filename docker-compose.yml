@@ -1,0 +1,39 @@
+version: '3.11'
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:Asilcheek072103/EXAM.git
+git push -u origin main
+
+services:
+  bot:
+    image: asilbek721/exam_co
+    restart: always
+    container_name: exam_con
+    environment:
+      TOKEN: 7106790792:AAG6kEA9SI_zBgx-1EBJvlZr_-igVJNeZ-4
+      DB_USER: postgres
+      DB_NAME: postgres
+      DB_HOST: pg
+      DB_PORT: 5432
+      DB_PASSWORD: 1
+
+    depends_on:
+      - pg
+
+
+  pg:
+    image: postgres:alpine
+    restart: always
+    container_name: pg_con
+    environment:
+      POSTGRES_PASSWORD: 1
+      TZ: Asia/Tashkent
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
+
+volumes:
+  pg_data:
